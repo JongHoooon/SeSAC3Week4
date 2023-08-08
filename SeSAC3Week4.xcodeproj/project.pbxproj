@@ -17,6 +17,8 @@
 		ED3411282A8096BD00A41C7C /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = ED3411272A8096BD00A41C7C /* SwiftyJSON */; };
 		ED34112B2A8096CB00A41C7C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = ED34112A2A8096CB00A41C7C /* Kingfisher */; };
 		ED34112D2A809BA000A41C7C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = ED34112C2A809BA000A41C7C /* .gitignore */; };
+		ED34112F2A809C3100A41C7C /* TranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED34112E2A809C3100A41C7C /* TranslationViewController.swift */; };
+		ED3411312A809C5800A41C7C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3411302A809C5800A41C7C /* APIKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		ED34111B2A80966B00A41C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED34111D2A80966B00A41C7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED34112C2A809BA000A41C7C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		ED34112E2A809C3100A41C7C /* TranslationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationViewController.swift; sourceTree = "<group>"; };
+		ED3411302A809C5800A41C7C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				ED34110F2A80966900A41C7C /* AppDelegate.swift */,
 				ED3411112A80966900A41C7C /* SceneDelegate.swift */,
 				ED3411132A80966900A41C7C /* ViewController.swift */,
+				ED34112E2A809C3100A41C7C /* TranslationViewController.swift */,
+				ED3411302A809C5800A41C7C /* APIKey.swift */,
 				ED3411152A80966900A41C7C /* Main.storyboard */,
 				ED3411182A80966B00A41C7C /* Assets.xcassets */,
 				ED34111A2A80966B00A41C7C /* LaunchScreen.storyboard */,
@@ -158,9 +164,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED34112F2A809C3100A41C7C /* TranslationViewController.swift in Sources */,
 				ED3411142A80966900A41C7C /* ViewController.swift in Sources */,
 				ED3411102A80966900A41C7C /* AppDelegate.swift in Sources */,
 				ED3411122A80966900A41C7C /* SceneDelegate.swift in Sources */,
+				ED3411312A809C5800A41C7C /* APIKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
