@@ -146,18 +146,28 @@
                                     <constraint firstAttribute="height" constant="200" id="q1J-EX-AYd"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRm-2A-csn">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jRm-2A-csn">
                                 <rect key="frame" x="20" y="299" width="353" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7S-oa-iFr">
-                                <rect key="frame" x="20" y="340" width="353" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7S-oa-iFr">
+                                <rect key="frame" x="20" y="340" width="353" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWy-JR-J9m">
+                                <rect key="frame" x="104.33333333333333" y="763.66666666666663" width="184.33333333333337" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="mug.fill" catalog="system" title="다른 맥주 추천 받기" imagePadding="4">
+                                    <color key="baseForegroundColor" systemColor="systemYellowColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="tappedNewRecommendButton:" destination="Ate-NH-Rjv" eventType="touchUpInside" id="qfG-bD-JOQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8iS-T9-Vga"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -166,6 +176,8 @@
                             <constraint firstItem="8iS-T9-Vga" firstAttribute="trailing" secondItem="W7S-oa-iFr" secondAttribute="trailing" constant="20" id="5UA-K0-2BU"/>
                             <constraint firstItem="zLW-8E-Mui" firstAttribute="top" secondItem="8iS-T9-Vga" secondAttribute="top" constant="20" id="7Mb-ur-NqV"/>
                             <constraint firstItem="W7S-oa-iFr" firstAttribute="leading" secondItem="8iS-T9-Vga" secondAttribute="leading" constant="20" id="95y-7P-NJR"/>
+                            <constraint firstItem="8iS-T9-Vga" firstAttribute="bottom" secondItem="uWy-JR-J9m" secondAttribute="bottom" constant="20" id="IQc-0O-vYJ"/>
+                            <constraint firstItem="uWy-JR-J9m" firstAttribute="centerX" secondItem="8iS-T9-Vga" secondAttribute="centerX" id="KVa-nL-yBX"/>
                             <constraint firstItem="jRm-2A-csn" firstAttribute="leading" secondItem="8iS-T9-Vga" secondAttribute="leading" constant="20" id="PkX-QF-P6B"/>
                             <constraint firstItem="8iS-T9-Vga" firstAttribute="trailing" secondItem="zLW-8E-Mui" secondAttribute="trailing" constant="20" id="Qc9-DK-LIj"/>
                             <constraint firstItem="zLW-8E-Mui" firstAttribute="leading" secondItem="8iS-T9-Vga" secondAttribute="leading" constant="20" id="X6c-U0-UbO"/>
@@ -185,11 +197,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="mug.fill" catalog="system" width="128" height="125"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

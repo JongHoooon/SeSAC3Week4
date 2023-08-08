@@ -22,6 +22,11 @@ final class BeerViewController: UIViewController {
         callRequest()
     }
     
+    @IBAction func tappedNewRecommendButton(_ sender: UIButton) {
+        callRequest()
+    }
+    
+    
     private func callRequest() {
         
         let url = "https://api.punkapi.com/v2/beers/random"
@@ -41,15 +46,6 @@ final class BeerViewController: UIViewController {
                 let imageURL = json["image_url"].stringValue
                 let description = json["description"].stringValue
                 
-                /*
-                DispatchQueue.global().async {
-                    let beerImage = try? UIImage(data: Data(contentsOf: URL(string: imageURL)!))
-                    DispatchQueue.main.async {
-                        self?.beerImageView.image = beerImage
-                    }
-                }
-                 */
-                
                 Task {
                     do {
                         self?.beerImageView.image = try await self?.fetchImage(url: imageURL)
@@ -57,8 +53,6 @@ final class BeerViewController: UIViewController {
                         print(error)
                     }
                 }
-                
-             
                 
                 self?.nameLabel?.text = name
                 self?.descriptionLabel?.text = description
@@ -69,17 +63,17 @@ final class BeerViewController: UIViewController {
     }
     
     private func fetchImage(url: String) async throws -> UIImage {
-        
-        print(Thread.current)
-        
+                
         guard let url = URL(string: url) else {
-            throw fatalError("잘못된 이미지 url입니다.")
+            print("잘못된 url 입니다.")
+            return UIImage(systemName: "mug") ?? UIImage()
         }
         
         let (data, _) = try await URLSession.shared.data(from: url)
         
         guard let image = UIImage(data: data) else {
-            throw fatalError("유효하지 않은 data 입니다.")
+            print("유효하지 않은 data 입니다.")
+            return UIImage(systemName: "mug") ?? UIImage()
         }
         
         return image
