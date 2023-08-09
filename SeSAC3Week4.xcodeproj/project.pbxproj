@@ -20,6 +20,7 @@
 		ED34112F2A809C3100A41C7C /* TranslationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED34112E2A809C3100A41C7C /* TranslationViewController.swift */; };
 		ED3411312A809C5800A41C7C /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3411302A809C5800A41C7C /* APIKey.swift */; };
 		ED6FA5112A81C4CF0091CD73 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6FA5102A81C4CF0091CD73 /* WeatherViewController.swift */; };
+		ED8817792A8323000038A3D3 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8817782A8323000038A3D3 /* VideoTableViewCell.swift */; };
 		ED9214132A81E78F008E7766 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9214122A81E78F008E7766 /* VideoViewController.swift */; };
 		ED9214152A820083008E7766 /* BeerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9214142A820083008E7766 /* BeerViewController.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		ED34112E2A809C3100A41C7C /* TranslationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationViewController.swift; sourceTree = "<group>"; };
 		ED3411302A809C5800A41C7C /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		ED6FA5102A81C4CF0091CD73 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		ED8817782A8323000038A3D3 /* VideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
 		ED9214122A81E78F008E7766 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		ED9214142A820083008E7766 /* BeerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,8 +82,8 @@
 				ED3411152A80966900A41C7C /* Main.storyboard */,
 				ED3411132A80966900A41C7C /* ViewController.swift */,
 				ED34112E2A809C3100A41C7C /* TranslationViewController.swift */,
-				ED9214122A81E78F008E7766 /* VideoViewController.swift */,
-				ED6FA5102A81C4CF0091CD73 /* WeatherViewController.swift */,
+				ED88177A2A8323040038A3D3 /* Video */,
+				ED88177B2A83230E0038A3D3 /* Weather */,
 				ED9214142A820083008E7766 /* BeerViewController.swift */,
 				ED3411182A80966B00A41C7C /* Assets.xcassets */,
 				ED34111A2A80966B00A41C7C /* LaunchScreen.storyboard */,
@@ -89,6 +91,23 @@
 				ED34112C2A809BA000A41C7C /* .gitignore */,
 			);
 			path = SeSAC3Week4;
+			sourceTree = "<group>";
+		};
+		ED88177A2A8323040038A3D3 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				ED9214122A81E78F008E7766 /* VideoViewController.swift */,
+				ED8817782A8323000038A3D3 /* VideoTableViewCell.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		ED88177B2A83230E0038A3D3 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				ED6FA5102A81C4CF0091CD73 /* WeatherViewController.swift */,
+			);
+			path = Weather;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +200,7 @@
 				ED3411102A80966900A41C7C /* AppDelegate.swift in Sources */,
 				ED3411122A80966900A41C7C /* SceneDelegate.swift in Sources */,
 				ED3411312A809C5800A41C7C /* APIKey.swift in Sources */,
+				ED8817792A8323000038A3D3 /* VideoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
