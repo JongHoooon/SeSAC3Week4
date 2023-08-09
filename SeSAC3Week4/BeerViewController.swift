@@ -50,6 +50,7 @@ final class BeerViewController: UIViewController {
                     do {
                         self?.beerImageView.image = try await self?.fetchImage(url: imageURL)
                     } catch {
+                        self?.beerImageView.image = UIImage(systemName: "mug")
                         print(error)
                     }
                 }
@@ -65,17 +66,20 @@ final class BeerViewController: UIViewController {
     private func fetchImage(url: String) async throws -> UIImage {
                 
         guard let url = URL(string: url) else {
-            print("잘못된 url 입니다.")
-            return UIImage(systemName: "mug") ?? UIImage()
+            throw BeerError.noBeerImage
         }
         
         let (data, _) = try await URLSession.shared.data(from: url)
         
         guard let image = UIImage(data: data) else {
-            print("유효하지 않은 data 입니다.")
-            return UIImage(systemName: "mug") ?? UIImage()
+            throw BeerError.noData
         }
         
         return image
     }
+}
+
+enum BeerError: Error {
+    case noBeerImage
+    case noData
 }
