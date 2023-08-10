@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class TranslationViewController: UIViewController {
+class TranslationViewController: UIViewController, Alertable {
     
     @IBOutlet weak var originalTextView: UITextView!
     @IBOutlet weak var translateTextView: UITextView!
@@ -32,6 +32,54 @@ class TranslationViewController: UIViewController {
     
     
     @IBAction func requestButtonClicked(_ sender: UIButton) {
+        detectLanguage(completionHandler: translateLanguage(languageCode:))
+    }
+}
+
+private extension TranslationViewController {
+    
+    func detectLanguage(completionHandler: @escaping (String) -> Void) {
+        
+        let url = "https://openapi.naver.com/v1/papago/detectLangs"
+        let headers: HTTPHeaders = [
+            "X-Naver-Client-Id": APIKey.naverClientID,
+            "X-Naver-Client-Secret": APIKey.naverClientSecret
+        ]
+        let parameters: Parameters = [
+            "query": originalTextView.text ?? "",
+        ]
+        
+        AF.request(
+            url,
+            method: .post,
+            parameters: parameters,
+            headers: headers
+        )
+        .validate()
+        .responseJSON { [weak self] response in
+            
+            switch response.result {
+            case let .success(value):
+                
+                let json = JSON(value)
+                let languageCode = json["langCode"].stringValue
+                
+                completionHandler(languageCode)
+            case let .failure(error):
+                switch response.response?.statusCode {
+                case 400:
+                    self?.presnetSimpleAlert(message: "번역할 내용을 입력해주세요!")
+                case 500:
+                    self?.presnetSimpleAlert(message: "Internal server errors")
+                default:
+                    self?.presnetSimpleAlert(message: "알 수 없는 오류입니다.")
+                }
+                print(error)
+            }
+        }
+    }
+    
+    func translateLanguage(languageCode: String) {
         
         let url = "https://openapi.naver.com/v1/papago/n2mt"
         let header: HTTPHeaders = [
@@ -39,7 +87,7 @@ class TranslationViewController: UIViewController {
             "X-Naver-Client-Secret": APIKey.naverClientSecret
         ]
         let parameters: Parameters = [
-            "source": "ko",
+            "source": languageCode,
             "target": "en",
             "text": originalTextView.text ?? ""
         ]
