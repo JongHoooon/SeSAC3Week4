@@ -8,6 +8,7 @@
 import UIKit
 
 import Alamofire
+import Kingfisher
 import SwiftyJSON
 
 struct Video {
@@ -127,6 +128,10 @@ extension VideoViewController: UITableViewDelegate,
         
         cell.titleLabel.text = row.title
         cell.contentLabel.text = row.contents
+        
+        if let url = URL(string: row.thumbnail) {
+            cell.thumbnailImageView.kf.setImage(with: url)            
+        }
         
         return cell
     }

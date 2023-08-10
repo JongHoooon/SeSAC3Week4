@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Msh-Ve-0tN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T9s-mf-U5T">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -53,6 +53,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="bz5-YU-GTA">
+                                <rect key="frame" x="186.66666666666666" y="416" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -60,16 +63,18 @@
                             <constraint firstItem="9Ai-Pl-5d6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="2lW-dC-6u0"/>
                             <constraint firstItem="gfg-Jo-1bt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="88F-U2-l6S"/>
                             <constraint firstItem="9Ai-Pl-5d6" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9hx-MW-ePi"/>
+                            <constraint firstItem="bz5-YU-GTA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C4E-xm-cvd"/>
                             <constraint firstItem="gfg-Jo-1bt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="H3P-5a-z8I"/>
+                            <constraint firstItem="bz5-YU-GTA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Hdb-W0-6uJ"/>
                             <constraint firstItem="9Ai-Pl-5d6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="StR-Xz-w4O"/>
                             <constraint firstItem="9Ai-Pl-5d6" firstAttribute="top" secondItem="gfg-Jo-1bt" secondAttribute="bottom" id="rJ6-sF-7dT"/>
                             <constraint firstItem="gfg-Jo-1bt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ty9-nX-7U1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="indicatorView" destination="bz5-YU-GTA" id="cwe-HC-s6e"/>
                         <outlet property="movieTableView" destination="9Ai-Pl-5d6" id="dfb-dm-YtA"/>
-                        <outlet property="searchBar" destination="gfg-Jo-1bt" id="Su8-HT-Gxh"/>
-                        <outlet property="videoTableView" destination="9Ai-Pl-5d6" id="zKW-H4-ieT"/>
+                        <outlet property="searchBar" destination="gfg-Jo-1bt" id="G1s-Im-ZNR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -207,6 +212,66 @@
             </objects>
             <point key="canvasLocation" x="1968.7022900763359" y="-35.211267605633807"/>
         </scene>
+        <!--Translation View Controller-->
+        <scene sceneID="87y-mx-jam">
+            <objects>
+                <viewController id="T9s-mf-U5T" customClass="TranslationViewController" customModule="SeSAC3Week4" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GFo-MJ-L6S">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Dxf-ho-qSw">
+                                <rect key="frame" x="20" y="79" width="353" height="314.66666666666669"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-S4-mfv">
+                                <rect key="frame" x="20" y="413.66666666666669" width="353" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="kJm-kI-lrZ"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="requestButtonClicked:" destination="T9s-mf-U5T" eventType="touchUpInside" id="Gr6-vX-LMc"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UrA-Bf-baR">
+                                <rect key="frame" x="20" y="483.66666666666674" width="353" height="314.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2Hh-mX-1Ls"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oDC-S4-mfv" firstAttribute="leading" secondItem="2Hh-mX-1Ls" secondAttribute="leading" constant="20" id="7pE-0u-kCH"/>
+                            <constraint firstItem="2Hh-mX-1Ls" firstAttribute="trailing" secondItem="UrA-Bf-baR" secondAttribute="trailing" constant="20" id="JSr-9J-Bfh"/>
+                            <constraint firstItem="2Hh-mX-1Ls" firstAttribute="trailing" secondItem="Dxf-ho-qSw" secondAttribute="trailing" constant="20" id="LWD-i5-2y0"/>
+                            <constraint firstItem="UrA-Bf-baR" firstAttribute="height" secondItem="Dxf-ho-qSw" secondAttribute="height" id="MRJ-e3-yQc"/>
+                            <constraint firstItem="UrA-Bf-baR" firstAttribute="leading" secondItem="2Hh-mX-1Ls" secondAttribute="leading" constant="20" id="QmX-0z-5OI"/>
+                            <constraint firstItem="oDC-S4-mfv" firstAttribute="top" secondItem="Dxf-ho-qSw" secondAttribute="bottom" constant="20" id="VeP-l6-EQe"/>
+                            <constraint firstItem="2Hh-mX-1Ls" firstAttribute="trailing" secondItem="oDC-S4-mfv" secondAttribute="trailing" constant="20" id="b8F-jB-9fp"/>
+                            <constraint firstItem="Dxf-ho-qSw" firstAttribute="top" secondItem="2Hh-mX-1Ls" secondAttribute="top" constant="20" id="sPb-2c-fol"/>
+                            <constraint firstItem="2Hh-mX-1Ls" firstAttribute="bottom" secondItem="UrA-Bf-baR" secondAttribute="bottom" constant="20" id="x0D-mU-9gJ"/>
+                            <constraint firstItem="Dxf-ho-qSw" firstAttribute="leading" secondItem="2Hh-mX-1Ls" secondAttribute="leading" constant="20" id="ykh-rE-zh6"/>
+                            <constraint firstItem="UrA-Bf-baR" firstAttribute="top" secondItem="oDC-S4-mfv" secondAttribute="bottom" constant="20" id="yq7-6B-4UG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="originalTextView" destination="Dxf-ho-qSw" id="7VK-SA-3dd"/>
+                        <outlet property="requestButon" destination="oDC-S4-mfv" id="S4n-23-Mf7"/>
+                        <outlet property="translateTextView" destination="UrA-Bf-baR" id="hAg-Xd-hLP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1kl-3j-9yw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1391.6030534351144" y="717.6056338028169"/>
+        </scene>
         <!--Beer View Controller-->
         <scene sceneID="DtL-Hz-k78">
             <objects>
@@ -273,6 +338,9 @@
     </scenes>
     <resources>
         <image name="mug.fill" catalog="system" width="128" height="125"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
