@@ -10,7 +10,7 @@ import UIKit
 protocol Alertable {}
 
 extension Alertable where Self: UIViewController {
-    func presnetSimpleAlert(
+    func presentSimpleAlert(
         title: String? = nil,
         message: String
     ) {

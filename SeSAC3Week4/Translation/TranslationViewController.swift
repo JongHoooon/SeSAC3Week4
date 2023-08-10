@@ -71,9 +71,9 @@ class TranslationViewController: UIViewController, Alertable {
                 translateTextView.text = translatedText
             } catch {
                 if let translationError = error as? TranslationError {
-                    presnetSimpleAlert(message: translationError.message)
+                    presentSimpleAlert(message: translationError.message)
                 } else {
-                    presnetSimpleAlert(message: "알 수 없는 오류입니다.")
+                    presentSimpleAlert(message: "알 수 없는 오류입니다.")
                     print(error)
                 }
             }
@@ -114,11 +114,11 @@ private extension TranslationViewController {
             case let .failure(error):
                 switch response.response?.statusCode {
                 case 400:
-                    self?.presnetSimpleAlert(message: "번역할 내용을 입력해주세요!")
+                    self?.presentSimpleAlert(message: "번역할 내용을 입력해주세요!")
                 case 500:
-                    self?.presnetSimpleAlert(message: "Internal server errors")
+                    self?.presentSimpleAlert(message: "Internal server errors")
                 default:
-                    self?.presnetSimpleAlert(message: "알 수 없는 오류입니다.")
+                    self?.presentSimpleAlert(message: "알 수 없는 오류입니다.")
                 }
                 print(error)
             }
