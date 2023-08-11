@@ -122,7 +122,9 @@ extension VideoViewController: UITableViewDelegate,
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "VideoTableViewCell") as? VideoTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: VideoTableViewCell.identifier
+        ) as? VideoTableViewCell else { return UITableViewCell() }
 
         let row = videoList[indexPath.row]
         

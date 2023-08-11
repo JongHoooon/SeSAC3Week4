@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol Alertable {}
+protocol AlertableProtocol {}
 
-extension Alertable where Self: UIViewController {
+extension AlertableProtocol where Self: UIViewController {
     func presentSimpleAlert(
         title: String? = nil,
         message: String

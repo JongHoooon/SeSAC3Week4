@@ -40,7 +40,7 @@ struct Result: Decodable {
 }
 
 
-class TranslationViewController: UIViewController, Alertable {
+class TranslationViewController: UIViewController, AlertableProtocol {
     
     @IBOutlet weak var originalTextView: UITextView!
     @IBOutlet weak var translateTextView: UITextView!
@@ -48,6 +48,15 @@ class TranslationViewController: UIViewController, Alertable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserDefaults.standard.set("고래밥", forKey: "nickanme")
+        UserDefaults.standard.set(33, forKey: "age")
+        
+        UserDefaults.standard.string(forKey: "nickname")
+        UserDefaults.standard.integer(forKey: "age")
+        
+        originalTextView.text = UserDefaultsHelper.standard.nickname
+        UserDefaultsHelper.standard.nickname = "칙촉"
         
         [
             originalTextView,
