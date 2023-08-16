@@ -24,7 +24,8 @@ struct Video {
     }
 }
 
-class VideoViewController: UIViewController {
+class VideoViewController: UIViewController,
+                           AlertableProtocol {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var videoTableView: UITableView!
@@ -46,62 +47,28 @@ class VideoViewController: UIViewController {
     }
     
     func callRequest(query: String, page: Int) {
-        
-        let text = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        let url = "https://dapi.kakao.com/v2/search/vclip?query=\(text)&size=30&page=\(page)"
-        let header: HTTPHeaders = ["Authorization": "KakaoAK \(APIKey.kakaoKey)"]
-        
-        AF.request(
-            url,
-            method: .get,
-            headers: header
-        )
-        .validate(statusCode: 200...500)
-        .responseJSON { [weak self] response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                print("JSON: \(json)")
-                
-                let statusCode = response.response?.statusCode ?? 500
-                
-                if statusCode == 200 {
+        KakaoAPIManager.shared.callRequest(
+            type: .video,
+            query: query,
+            page: page,
+            completionHandler: { [weak self] result in
+                switch result {
+                case let .success(videoListResponse):
                     
-                    self?.isEnd = json["meta"]["is_end"].boolValue
+                    print(videoListResponse)
                     
-                    
-                    for item in json["documents"].arrayValue {
-                        let author = item["author"].stringValue
-                        let date = item["datetime"].stringValue
-                        let time = item["play_time"].intValue
-                        let thumbnail = item["thumbnail"].stringValue
-                        let title = item["title"].stringValue
-                        let link = item["url"].stringValue
-                        
-                        let data = Video(
-                            author: author,
-                            date: date,
-                            time: time,
-                            thumbnail: thumbnail,
-                            title: title,
-                            link: link
-                        )
-                        
-                        self?.videoList.append(data)
+                    if let isEnd = videoListResponse.meta?.isEnd {
+                        self?.isEnd = isEnd
                     }
                     
-                    print("---------------------")
-                    print(self?.videoList)
-                    self?.videoTableView.reloadData()
-                    
-                } else {
-                    print("문제가 발생했어요. 잠시 후 다시 시도해주세요!!\(statusCode)")
+                    if let documents = videoListResponse.documents {
+                        self?.handleVideoListDocuments(with: documents)
+                    }
+                case let .failure(error):
+                    self?.handleError(error: error)
                 }
-                
-            case .failure(let error):
-                print(error)
             }
-        }
+        )
     }
 }
 
@@ -163,7 +130,7 @@ extension VideoViewController: UITableViewDelegate,
         _ tableView: UITableView,
         cancelPrefetchingForRowsAt indexPaths: [IndexPath]
     ) {
-        print("==========취소: \(indexPaths)===========")
+//        print("==========취소: \(indexPaths)===========")
     }
 }
 
@@ -180,5 +147,38 @@ extension VideoViewController: UISearchBarDelegate {
             page: page
         )
     }
+}
+
+private extension VideoViewController {
     
+    func handleVideoListDocuments(with documents: [VideoListResponse.Document]) {
+        let videoList = documents.map {
+            return Video(
+                author: $0.author ?? "",
+                date: $0.datetime ?? "",
+                time: $0.playTime ?? 0,
+                thumbnail: $0.thumbnail ?? "",
+                title: $0.title ?? "",
+                link: $0.url ?? ""
+            )
+        }
+        self.videoList.append(contentsOf: videoList)
+        videoTableView.reloadData()
+    }
+    
+    func handleError(error: Error) {
+        if let error = error as? KakaoError.BadStatusCode {
+            presentSimpleAlert(message: error.message)
+            
+            return
+        }
+        
+        if let error = error as? AFError {
+            presentSimpleAlert(message: error.errorDescription ?? "알 수 없는 오류입니다.")
+            
+            return
+        }
+        
+        presentSimpleAlert(message: error.localizedDescription)
+    }
 }

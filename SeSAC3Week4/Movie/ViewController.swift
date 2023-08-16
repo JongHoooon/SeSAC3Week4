@@ -10,11 +10,6 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-struct Movie {
-    var title: String
-    var release: String
-}
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var movieTableView: UITableView!
@@ -22,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     var movieList: [Movie] = []
+    
+    var result: BoxOfficeResponse?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,31 +43,48 @@ class ViewController: UIViewController {
             method: .get
         )
         .validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                print("JSON: \(json)")
-  
-                for item in json["boxOfficeResult"]["dailyBoxOfficeList"].arrayValue {
-                    let movieNm = item["movieNm"].stringValue
-                    let openDt = item["openDt"].stringValue
+        .responseDecodable(
+            of: BoxOfficeResponse.self ,
+            completionHandler: { [weak self] response in
+                
+                switch response.result {
+                case let .success(value):
+                    print(value)
+                    self?.result = value
                     
-                    let movie = Movie(
-                        title: movieNm,
-                        release: openDt
-                    )
-                    self.movieList.append(movie)
+                case let .failure(error):
+                    print(error)
                 }
                 
-                self.indicatorView.isHidden = true
-                self.indicatorView.stopAnimating()
-                self.movieTableView.reloadData()
-                
-            case .failure(let error):
-                print(error)
             }
-        }
+        )
+        
+        
+//        .responseJSON { response in
+//            switch response.result {
+//            case .success(let value):
+//                let json = JSON(value)
+//                print("JSON: \(json)")
+//
+//                for item in json["boxOfficeResult"]["dailyBoxOfficeList"].arrayValue {
+//                    let movieNm = item["movieNm"].stringValue
+//                    let openDt = item["openDt"].stringValue
+//
+//                    let movie = Movie(
+//                        title: movieNm,
+//                        release: openDt
+//                    )
+//                    self.movieList.append(movie)
+//                }
+//
+//                self.indicatorView.isHidden = true
+//                self.indicatorView.stopAnimating()
+//                self.movieTableView.reloadData()
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
 }
 
@@ -80,7 +94,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return movieList.count
+        return result?.boxOfficeResult.dailyBoxOfficeList.count ?? 0
     }
     
     func tableView(
@@ -114,4 +128,40 @@ extension ViewController: UISearchBarDelegate {
         
     }
     
+}
+
+struct Movie {
+    var title: String
+    var release: String
+}
+
+// MARK: - Welcome
+struct BoxOfficeResponse: Codable {
+    let boxOfficeResult: BoxOfficeResult
+}
+
+// MARK: - BoxOfficeResult
+struct BoxOfficeResult: Codable {
+    let showRange, boxofficeType: String
+    let dailyBoxOfficeList: [DailyBoxOfficeList]
+}
+
+// MARK: - DailyBoxOfficeList
+struct DailyBoxOfficeList: Codable {
+    let salesInten, rankInten, scrnCnt, openDt: String
+    let salesAcc, rnum, salesChange: String
+    let rankOldAndNew: RankOldAndNew
+    let movieCD, audiChange, movieNm, salesAmt: String
+    let showCnt, rank, audiCnt, salesShare: String
+    let audiInten, audiAcc: String
+
+    enum CodingKeys: String, CodingKey {
+        case salesInten, rankInten, scrnCnt, openDt, salesAcc, rnum, salesChange, rankOldAndNew
+        case movieCD = "movieCd"
+        case audiChange, movieNm, salesAmt, showCnt, rank, audiCnt, salesShare, audiInten, audiAcc
+    }
+}
+
+enum RankOldAndNew: String, Codable {
+    case old = "OLD"
 }

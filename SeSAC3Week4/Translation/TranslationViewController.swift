@@ -20,7 +20,7 @@ struct TranslationResult: Decodable {
 
 struct Message: Decodable {
     let type: String?
-    let result: Result?
+    let result: MessageResult?
     let version: String?
     let service: String?
 
@@ -32,7 +32,7 @@ struct Message: Decodable {
     }
 }
 
-struct Result: Decodable {
+struct MessageResult: Decodable {
     let srcLangType: String?
     let translatedText: String?
     let engineType: String?
@@ -73,20 +73,27 @@ class TranslationViewController: UIViewController, AlertableProtocol {
     @IBAction func requestButtonClicked(_ sender: UIButton) {
 //        detectLanguage(completionHandler: translateLanguage(languageCode:))
         
-        Task {
-            do {
-                let languageCode = try await detectLanguage2()
-                let translatedText = try await translateLanguage2(languageCode: languageCode)
-                translateTextView.text = translatedText
-            } catch {
-                if let translationError = error as? TranslationError {
-                    presentSimpleAlert(message: translationError.message)
-                } else {
-                    presentSimpleAlert(message: "알 수 없는 오류입니다.")
-                    print(error)
-                }
+        TranslateAPIManager.shared.callRequest(
+            text: originalTextView.text,
+            resultString: { [weak self] resultString in
+                self?.translateTextView.text = resultString
             }
-        }
+        )
+        
+//        Task {
+//            do {
+//                let languageCode = try await detectLanguage2()
+//                let translatedText = try await translateLanguage2(languageCode: languageCode)
+//                translateTextView.text = translatedText
+//            } catch {
+//                if let translationError = error as? TranslationError {
+//                    presentSimpleAlert(message: translationError.message)
+//                } else {
+//                    presentSimpleAlert(message: "알 수 없는 오류입니다.")
+//                    print(error)
+//                }
+//            }
+//        }
     }
 }
 
@@ -135,38 +142,12 @@ private extension TranslationViewController {
     }
     
     func translateLanguage(languageCode: String) {
-        
-        let url = EndPoint.naverPapagoTranslation
-        let header: HTTPHeaders = [
-            "X-Naver-Client-Id": APIKey.naverClientID,
-            "X-Naver-Client-Secret": APIKey.naverClientSecret
-        ]
-        let parameters: Parameters = [
-            "source": languageCode,
-            "target": "en",
-            "text": originalTextView.text ?? ""
-        ]
-        
-        AF.request(
-            url,
-            method: .post,
-            parameters: parameters,
-            headers: header
-        )
-        .validate()
-        .responseJSON { [weak self] response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                print("JSON: \(json)")
-                
-                let data = json["message"]["result"]["translatedText"].stringValue
-                self?.translateTextView.text = data
-                
-            case .failure(let error):
-                print(error)
+        TranslateAPIManager.shared.callRequest(
+            text: originalTextView.text,
+            resultString: { [weak self] resultString in
+                self?.translateTextView.text = resultString
             }
-        }
+        )
     }
     
     func detectLanguage2() async throws -> String {
